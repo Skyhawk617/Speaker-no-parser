@@ -75,6 +75,8 @@ for s in st:
         print games[count]("td")[0].text
         print games[count]("td")[1].text
         print games[count].find("a")["href"]
+        count+=1
+
     tblFixtures.append((s[0], s[1], tblTeamFixtures))
     
 with open('../fixtures.txt', 'w') as outfile:

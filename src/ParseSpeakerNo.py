@@ -42,16 +42,18 @@ class ParseSpeakerNo(object):
             print child.get('value')+","+child.string
         
             st.append((child.get('value'), child.string))
+            #st.append((child.string, (child.get('value'))))
              
         #Now getting all the team fixtures
         fixtures = []
         tblFixtures = []
+        local = False
         for s in st:
             #print s
             #link = base_link % {"ID_String":str(s[0])}
-            
+            link = self.base_link % {"ID_String":s[0]}
             if not local:
-                req = urllib2.Request(link, headers={'User-Agent': 'Mozilla/5.0'})
+                req = urllib2.Request(link, headers={'User-Agent': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; Trident/5.0)'})
                 myfile = urllib2.urlopen(req).read()
                 #myfile = f.read()
             else:
@@ -71,5 +73,6 @@ class ParseSpeakerNo(object):
                 print games[count]("td")[0].text
                 print games[count]("td")[1].text
                 print games[count].find("a")["href"]
+                count +=1
             tblFixtures.append((s[0], s[1], tblTeamFixtures))
         return ((("Teams",st),("Fixtures",tblFixtures)))
